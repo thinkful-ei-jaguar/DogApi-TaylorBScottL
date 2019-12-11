@@ -3,10 +3,23 @@
 function getDogImage(num) {
   fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson));
+    .then(responseJson => 
+        displayAllThePuppies(responseJson))
+    .catch(error => alert('Something went wrong. Try again later'));
 }
 
+function displayAllThePuppies (responseJson) {
+    let imgArr = responseJson.message;
+     $('.results').empty();
+    imgArr.forEach(img => {
+    
+      $('.results').append(`<img src="${img}" class ="result-img">`);
+    });
 
+    $('.results').removeClass('hidden');
+    
+    console.log(responseJson);
+}
 
 function watchForm() {
   $('form').submit(event => {
